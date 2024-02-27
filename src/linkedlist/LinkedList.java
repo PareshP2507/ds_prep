@@ -1,4 +1,7 @@
 package linkedlist;
+
+import linkedlist.reverse.LinkedListReverser;
+
 public class LinkedList {
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
@@ -9,7 +12,14 @@ public class LinkedList {
         list.insertAt(3, 15); // [10, 11, 20, 15, 30]
         list.insertAt(4, 40); // [10, 11, 20, 15, 40, 30]
         list.insertAt(6, 50); // [10, 11, 20, 15, 40, 30, 50]
+
+        System.out.println("Given linked list:");
         System.out.println(list.head.toString());
+
+        // Reversing the list
+        Node headNode = list.reverse(list.head);
+        System.out.println("Reversed linked list:");
+        System.out.println(headNode.toString());
     }
 
     public Node head = null;
@@ -123,6 +133,17 @@ public class LinkedList {
             }
         }
         return false;
+    }
+
+    /**
+     * Reverse the list
+     * 
+     * @param head headNode of LinkedList
+     * @return reversed list
+     */
+    public Node reverse(Node head) {
+       LinkedListReverser reverser = new LinkedListReverser();
+       return reverser.reverse(head);
     }
 
     public static class Node {
