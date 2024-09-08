@@ -21,6 +21,47 @@ public class CycleDetection {
 
         CycleDetection cycleDetection = new CycleDetection();
         System.out.println("Is cycle exist: " + cycleDetection.isCycleDetectedInDirectedGraph(graph));
+
+        /**
+         *    1 --- 2 
+         *   /|     |
+         *  / |     |
+         * 0  |     |
+         *  \ |     |
+         *   \|     |
+         *    4     3
+         *     \
+         *      \
+         *       5
+         * 
+         * cycle is available between 0-1-4
+         */
+        int V = 6;
+        ArrayList<Edge>[] undirectedGraph = new ArrayList[V];
+        for (int i = 0; i < undirectedGraph.length; i++) {
+            undirectedGraph[i] = new ArrayList<>();
+        }
+
+        undirectedGraph[0].add(new Edge(0, 1));
+        undirectedGraph[0].add(new Edge(0, 4));
+
+        undirectedGraph[1].add(new Edge(1, 0));
+        undirectedGraph[1].add(new Edge(1, 2));
+        undirectedGraph[1].add(new Edge(1, 4)); // Remove this to break the cycle
+
+        undirectedGraph[2].add(new Edge(2, 1));
+        undirectedGraph[2].add(new Edge(2, 3));
+        
+        undirectedGraph[3].add(new Edge(3, 2));
+        
+        undirectedGraph[4].add(new Edge(4, 0));
+        undirectedGraph[4].add(new Edge(4, 1)); // Remove this to break the cycle
+        undirectedGraph[4].add(new Edge(4, 5));
+
+        undirectedGraph[5].add(new Edge(5, 4));
+
+        System.out.println("Is cycle available in undirected graph: "
+                + cycleDetection.isCycleExistInUnDirectedGraph(undirectedGraph, V));
     }
 
     /**
@@ -73,6 +114,41 @@ public class CycleDetection {
                 return true;
             } else if (!visited[curr]) {
                 if (checkCycleForDirectedGraph(graph, curr, visited, recStack)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isCycleExistInUnDirectedGraph(ArrayList<Edge>[] graph, int V) {
+        boolean[] visited = new boolean[V];
+
+        // We are looping through all the unvisited vertices
+        // in case, when there is no possibilites to traverse though entire
+        // graph starting from only one vertex
+        for (int i = 0; i < graph.length; i++) {
+            if (!visited[i]) {
+                if (isCycleExistInUnDirectedGraphInternal(graph, visited, i, -1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean isCycleExistInUnDirectedGraphInternal(ArrayList<Edge>[] graph, boolean[] visited, int curr, int parent) {
+        visited[curr] = true;
+
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+
+            // IMPORTANT: vertex is visited but it is not the parent of current 
+            if (visited[e.dest] && parent != e.dest) {
+                return true;
+            } else if (!visited[e.dest]) {
+                if(isCycleExistInUnDirectedGraphInternal(graph, visited, e.dest, curr)) {
                     return true;
                 }
             }
