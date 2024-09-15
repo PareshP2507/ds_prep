@@ -18,6 +18,7 @@ public class TopologicalSort {
 
     public static void main(String[] args) {
         int noOfVertices = 6;
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[noOfVertices];
 
         for (int i = 0; i < graph.length; i++) {

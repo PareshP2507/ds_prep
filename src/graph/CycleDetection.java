@@ -1,12 +1,12 @@
 package graph;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class CycleDetection {
 
     public static void main(String[] args) {
         int noOfVertices = 5;
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[noOfVertices];
 
         for (int i = 0; i < graph.length; i++) {
@@ -37,6 +37,7 @@ public class CycleDetection {
          * cycle is available between 0-1-4
          */
         int V = 6;
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] undirectedGraph = new ArrayList[V];
         for (int i = 0; i < undirectedGraph.length; i++) {
             undirectedGraph[i] = new ArrayList<>();

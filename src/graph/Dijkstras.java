@@ -21,6 +21,7 @@ public class Dijkstras {
 
     public static void main(String[] args) {
         int V = 6; // no. of vertices
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[V];
         for (int i = 0; i < graph.length; i++) {
             graph[i] = new ArrayList<>();

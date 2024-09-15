@@ -21,6 +21,7 @@ public class Traversal {
 
         // Create an adjacency list for the graph above
         int noOfVertices = 7;
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[noOfVertices];
 
         for (int i = 0; i < graph.length; i++) {
